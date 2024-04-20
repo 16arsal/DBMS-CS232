@@ -1,7 +1,3 @@
-Sure, here's a README template you can use for your GitHub repository:
-
----
-
 # Wall Street Admin System
 
 This is a web-based administration system for managing various aspects of a financial institution, called "Wall Street Admin System". It allows users to perform tasks such as managing customers, employees, branches, products, invoices, and more.
