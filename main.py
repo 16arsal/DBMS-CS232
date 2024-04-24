@@ -92,7 +92,7 @@ def open_branch():
             msg = "Branch Opened Successfully"
             return render_template('open_branch.html', msg=msg)
         except:
-            self.connection.rollback()
+            conn.rollback()
 
     return render_template('ceo.html')
 
