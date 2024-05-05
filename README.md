@@ -13,7 +13,7 @@ Welcome to the Wall Street Admin System, a powerful web-based administration too
 - **Salary Payment**: Pay salaries to employees hassle-free.
 - **Interactive User Interface**: Enjoy a user-friendly web interface for seamless navigation.
 
-## Technologies Used 💻
+## Technologies Used 🧑‍💻
 
 - **Flask**: Python web framework for backend development.
 - **SQLAlchemy**: SQL toolkit and ORM library for database interactions.
