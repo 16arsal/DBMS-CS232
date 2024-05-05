@@ -4,57 +4,134 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>User Authentication</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://fastly.picsum.photos/id/214/2729/2047.jpg?hmac=sbADnAldkjZ_C8bOEoXFBSHedcFRZYO_GPg3eHwQ5m0'); 
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 400px; 
+      max-width: 100%; 
+      margin-top: 200px; /* Add margin to the top */
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: #ff0000;
+      margin-top: 10px;
+    }
+
+    .sign-in,
+    .sign-up {
+      margin-bottom: 20px;
+      width: 100%; /* Ensure sign-in and sign-up sections take up full width */
+    }
+
+    .sign-in form,
+    .sign-up form {
+      width: 100%; /* Ensure form elements take up full width */
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      color: #007bff;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-
-  <div>
-      <div class="sign in">
+  <div class="container">
+    <div class="sign-in">
       <h1>Sign-in</h1>
-      <form action="/signin" method='POST'>
-        <br><label for = "user_id">user id</label>
-        <br><input type="text" id="user_id" name="user_id">
-        <br><label for = "user_password">Password</label>
-        <br><input type="text" id="user_password" name="user_password">
+      <form action="/signin" method="POST">
+        <label for="user_id">User ID</label>
+        <input type="text" id="user_id" name="user_id">
+        <label for="user_password">Password</label>
+        <input type="password" id="user_password" name="user_password">
         <input type="submit" value="Submit">
-    </form>
-      {% if error %}  
-        <p><strong>Error</strong>: {{error}}</p>  
-      {% endif %}  
-  </div>
-  <a href = "{{url_for("signinadminpg")}}">Sign in admin</a>
-  {% if admins %}
-        <div class="sign in">
-      <h4>Sign-in As Admin</h4>
-      <form action="/signinadmin" method='POST'>
-        <label for = "user_id">user id</label>
-        <br><input type="text" id="user_id" name="user_id">
-        <br><label for = "user_password">Password</label>
-        <br><input type="text" id="user_password" name="user_password">
-        <input type="submit" value="Submit">
-    </form>
-  {% endif %}  
-    <div class="sign up">
+      </form>
+      {% if error %}
+      <p class="error"><strong>Error</strong>: {{ error }}</p>
+      {% endif %}
+    </div>
+    <div class="sign-in">
+      <a href="{{ url_for('signinadminpg') }}">Sign in as Admin</a>
+    </div>
+    <div class="sign-up">
       <h1>Sign-up</h1>
-    <form action="/signupuser" method='POST'>
-      <br><label for = "f_name">F name</label>
-      <br><input type="text" id="f_name" name="f_name">
-      <br><label for = "l_name">L name</label>
-      <br><input type="text" id="l_name" name="l_name">
-      <br><label for = "user_id">user_id</label>
-      <br><input type="text" id="user_id" name="user_id">
-      <br><label for = "user_password">Password</label>
-      <br><input type="text" id="user_password" name="user_password">
-      <br><label for = "e_mail">e_mail</label>
-      <br><input type="text" id="e_mail" name="e_mail">
-      <br><label for = "contact">phone_number (923xxxxxxx)</label>
-      <br><input type="text" id="contact" name="contact">
-      <input type="submit" value="Submit">
-  </form>
-  {% if msg %}
-  <p>{{ msg }}</p>
-  {% endif %}
-  </div>
+      <form action="/signupuser" method="POST">
+        <label for="f_name">First Name</label>
+        <input type="text" id="f_name" name="f_name">
+        <label for="l_name">Last Name</label>
+        <input type="text" id="l_name" name="l_name">
+        <label for="user_id">User ID</label>
+        <input type="text" id="user_id" name="user_id">
+        <label for="user_password">Password</label>
+        <input type="password" id="user_password" name="user_password">
+        <label for="e_mail">Email</label>
+        <input type="text" id="e_mail" name="e_mail">
+        <label for="contact">Phone Number (923xxxxxxxxx)</label>
+        <input type="text" id="contact" name="contact">
+        <input type="submit" value="Submit">
+      </form>
+      {% if msg %}
+      <p>{{ msg }}</p>
+      {% endif %}
+    </div>
   </div>
 </body>
 </html>
