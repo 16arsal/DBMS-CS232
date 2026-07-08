@@ -30,6 +30,8 @@ The project is not a production banking system. It is a DBMS class project focus
 .
 |-- main.py
 |-- sqlquries.sql
+|-- .env.example
+|-- .gitignore
 |-- Wall Street Brokering System Documentation.pdf
 |-- github-repo-link.txt
 `-- templates/
@@ -47,7 +49,7 @@ The project is not a production banking system. It is a DBMS class project focus
     `-- style.css
 ```
 
-The repository also contains a Python bytecode cache directory (`__pycache__/`) and a few empty or unused template files.
+The repository also contains a few empty or unused template files.
 
 ## Main Flask Routes
 
@@ -121,23 +123,29 @@ There is no `requirements.txt` in the repository. Install the Python packages ma
 python -m pip install flask flask-sqlalchemy psycopg2-binary
 ```
 
-Create a local PostgreSQL database named exactly as expected in `main.py`:
+Create a local PostgreSQL database named:
 
 ```text
 Wall-Street-Admin
 ```
 
-`main.py` currently connects with hardcoded local credentials:
+Copy the example environment file and fill in your own local database settings:
 
-```python
-database="Wall-Street-Admin"
-user="postgres"
-password="arsal"
-host="localhost"
-port="5432"
+```bash
+cp .env.example .env
 ```
 
-Update these values before running on another machine.
+Example `.env` values:
+
+```text
+DB_NAME=Wall-Street-Admin
+DB_USER=postgres
+DB_PASSWORD=your-local-password
+DB_HOST=localhost
+DB_PORT=5432
+```
+
+The app reads these values at startup. `.env` is ignored by Git so local credentials are not committed.
 
 The SQL setup file is named `sqlquries.sql`. It contains the schema, functions, procedures, sample inserts, and some repeated or experimental statements. Review and run it carefully in PostgreSQL before starting the Flask app.
 
@@ -157,25 +165,30 @@ http://localhost:5000
 
 The repository includes `Wall Street Brokering System Documentation.pdf`, a 10-page project documentation file generated from Microsoft Word.
 
+## Safety Cleanup Notes
+
+- Database credentials are now loaded from environment variables instead of being written directly in `main.py`.
+- `.env.example` documents the required local settings without exposing a real password.
+- `.env` is listed in `.gitignore`.
+- User-input SQL paths in `main.py` were converted to `psycopg2` parameterized queries where feasible without rewriting the app.
+
 ## Known Limitations
 
-- Database credentials are hardcoded in `main.py`.
-- SQL queries are built through string concatenation in multiple routes, so this code is not safe against SQL injection.
-- Passwords are stored and compared as plain text.
+- Passwords are still stored and compared as plain text.
 - The SQL setup file contains repeated table definitions and development-history statements, so it may need manual cleanup before a fresh database setup.
 - `paysal` appears to call `add_invoice(bid, ...)` even though the procedure parameter is named `b_id`; this may require correction before salary payment works reliably.
 - There is no `requirements.txt`, migration script, seed script, or automated test suite.
 - Some templates are empty or unused, and the UI is a simple coursework interface.
+- The Flask app still keeps one global database connection and runs in debug mode for local development.
 
 ## Future Improvements
 
-- Move database configuration into environment variables.
-- Replace string-built SQL with parameterized queries.
 - Hash passwords before storing them.
 - Convert `sqlquries.sql` into a clean setup script or migration sequence.
 - Add a `requirements.txt` file.
 - Add route-level validation and error handling.
 - Add tests for login, product upload, invoice creation, and salary payment.
+- Move toward scoped database connections or a consistent ORM/database-access layer.
 
 ## Authors
 
