@@ -161,9 +161,9 @@ Then open:
 http://localhost:5000
 ```
 
-## Documentation Artifact
+## Evidence / Report
 
-The repository includes `Wall Street Brokering System Documentation.pdf`, a 10-page project documentation file generated from Microsoft Word.
+- [Project documentation PDF](Wall%20Street%20Brokering%20System%20Documentation.pdf) - a 10-page coursework documentation artifact generated from Microsoft Word.
 
 ## Safety Cleanup Notes
 
